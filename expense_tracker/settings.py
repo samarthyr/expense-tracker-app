@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-kzv4jj*7lf4e(!_k8w-t(4%sl^gx1q%_k-lvmg4gj+_u709h5$
 import os
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['expensetracker-u2de.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
