@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(135deg, #4f63d6 0%, #9e6be8 100%);
+        min-height: 100vh;
+        font-family: 'Manrope', sans-serif;
+        color: #fff;
+      }
+      .main-card {
+        background: rgba(255,255,255,0.08);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        max-width: 900px;
+        margin: 3rem auto 2rem auto;
+      }
+      .main-title {
+        font-size: 2.3rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .main-subtitle {
+        font-size: 1.15rem;
+        color: #e0e0e0;
+        margin-bottom: 2.2rem;
+      }
+      .action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+      .action-card {
+        background: rgba(255,255,255,0.13);
+        border-radius: 16px;
+        padding: 2rem 1.2rem 1.5rem 1.2rem;
+        color: #fff;
+        box-shadow: 0 2px 12px 0 rgba(44,62,80,0.07);
+        transition: transform 0.15s;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: 150px;
+      }
+      .action-card:hover {
+        transform: translateY(-4px) scale(1.03);
+        background: rgba(255,255,255,0.18);
+      }
+      .action-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .action-desc {
+        font-size: 1rem;
+        color: #e0e0e0;
+        font-weight: 400;
+      }
+      .action-icon {
+        font-size: 2rem;
+        margin-bottom: 0.7rem;
+        opacity: 0.85;
+      }
+      .summary-row {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .summary-card {
+        flex: 1 1 200px;
+        background: rgba(255,255,255,0.13);
+        border-radius: 16px;
+        padding: 1rem 0.7rem;
+        color: #fff;
+        text-align: center;
+        box-shadow: 0 2px 12px 0 rgba(44,62,80,0.07);
+        margin-bottom: 0.5rem;
+        min-height: unset;
+      }
+      .summary-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 0.2rem;
+      }
+      .summary-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #fff;
+      }
+      .navbar-custom {
+        background: linear-gradient(90deg, #4f63d6 0%, #9e6be8 100%);
+        padding: 0.7rem 0;
+        margin-bottom: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .navbar-brand {
+        font-weight: 800;
+        font-size: 1.3rem;
+        color: #fff !important;
+        letter-spacing: 1px;
+      }
+      .nav-link {
+        color: #fff !important;
+        font-weight: 500;
+        margin-right: 1.2rem;
+        font-size: 1.05rem;
+        transition: color 0.15s;
+      }
+      .nav-link:hover {
+        color: #ffd6ff !important;
+      }
+      @media (max-width: 900px) {
+        .main-card { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
+        .action-grid { gap: 1rem; }
+      }
+      @media (max-width: 700px) {
+        .main-card { margin: 1.5rem 0.2rem; }
+        .action-grid { grid-template-columns: 1fr; }
+        .summary-row { flex-direction: column; gap: 0.7rem; }
+      }
+      .action-card {
+        min-height: 180px;
+      }
+      @media (max-width: 700px) {
+        .action-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        .action-card {
+          min-width: 0;
+          min-height: 120px;
+          padding: 0.5rem 0.2rem;
+          text-align: center;
+        }
+        .summary-row {
+          flex-direction: column;
+          gap: 0.7rem;
+        }
+        .main-title {
+          font-size: 1.3rem;
+        }
+        .main-subtitle {
+          font-size: 1rem;
+        }
+        .summary-card {
+          padding: 0.7rem 0.5rem;
+          font-size: 0.98rem;
+          text-align: center;
+        }
+        .summary-title, .summary-value, .summary-tip {
+          text-align: center;
+        }
+        .action-title, .action-desc, .action-icon {
+          text-align: center;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .px-2.pt-2, .px-2.pb-2 {
+          padding-left: 0.3rem !important;
+          padding-right: 0.3rem !important;
+        }
+        .summary-tip {
+          text-align: center;
+        }
+      }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'expense_list' %}">Expense Tracker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="{% url 'add_expense' %}">Add Expense</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'view_pocket_money' %}">Pocket Money</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'weekly_expenses' %}">Weekly</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'monthly_expenses' %}">Monthly</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'analysis' %}">Analysis</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'import_statement' %}">Import Statement</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'download_monthly_expenses' %}?year={{ selected_year }}&month={{ selected_month }}&category={{ request.GET.category }}">Download PDF</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Main Card -->
+<div class="main-card">
+  <div class="text-center">
+    <div class="main-title">
+      <span id="welcome-text"></span><span class="typing-cursor">|</span>
+    </div>
+    <div class="main-subtitle">Stay on top of your finances with smart insights and easy tracking.</div>
+  </div>
+<script>
+  const username = "{{ request.user.username|escapejs }}";
+    const text = `${username} - track your expenses`;
+  const speed = 75;
+  let index = 0;
+  function typeWriter() {
+    if (index < text.length) {
+      document.getElementById("welcome-text").innerHTML += text.charAt(index);
+      index++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+  window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(typeWriter, 500);
+  });
+</script>
+  <style>
+    .typing-cursor {
+      display: inline-block;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+  <!-- Summary Row -->
+  <div class="summary-row">
+    <div class="summary-card">
+      <div class="summary-title">💸 Total Spent This Month</div>
+      <div class="summary-value">₹{{ monthly_total }}</div>
+      <div class="summary-tip" style="font-size:0.95rem;color:#e0e0e0;margin-top:0.5rem;">
+        {% if monthly_total < prev_month_total and prev_month_total > 0 %}
+          🎉 Congrats! You spent less than last month (₹{{ prev_month_total|floatformat:2 }})!
+        {% elif monthly_total > prev_month_total and prev_month_total > 0 %}
+          ⚠️ You spent more than last month (₹{{ prev_month_total|floatformat:2 }}). Try to save more!
+        {% else %}
+          Tip: Set a monthly budget to avoid overspending.
+        {% endif %}
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-title">💰 Pocket Money Left</div>
+      <div class="summary-value">₹{{ money_left|floatformat:2 }}</div>
+      <div class="summary-tip" style="font-size:0.95rem;color:#e0e0e0;margin-top:0.5rem;">
+        {% if pocket_money_percent_left > 50 %}
+          👍 Great! You have more than half your pocket money left.
+        {% elif pocket_money_percent_left < 20 %}
+          ⚠️ Only {{ pocket_money_percent_left|floatformat:0 }}% left. Plan your expenses for the rest of the month!
+        {% else %}
+          Tip: Try to save at least 10% of your pocket money.
+        {% endif %}
+      </div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-title">Today</div>
+      <div class="summary-value">₹{{ today_total }}</div>
+      <div class="summary-tip" style="font-size:0.95rem;color:#e0e0e0;margin-top:0.5rem;">
+        {% if today_total == 0 %}
+          🎉 No expenses today! Consider saving or investing.
+        {% else %}
+          Tip: Log your expenses daily for better tracking.
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- Action Grid -->
+  <div class="action-grid">
+    <div onclick="window.location.href='{% url 'weekly_expenses' %}'" style="cursor:pointer;" class="action-card p-0 d-flex flex-column align-items-stretch justify-content-center">
+      <div class="px-2 pt-2" style="height: 80px;">
+        <canvas id="miniWeeklyTrendChart" height="80" style="width:100%;height:100%;display:block;"></canvas>
+      </div>
+      <div class="text-center pb-1">
+        <span class="action-icon" style="font-size:1.5rem;vertical-align:middle;">📊</span>
+        <span class="action-title" style="font-size:1.1rem;font-weight:600;vertical-align:middle;">Weekly Trend</span>
+      </div>
+      <div class="text-center pb-2" style="font-size:0.95rem;color:#e0e0e0;">
+        Tap the chart to see full weekly breakdown
+      </div>
+    </div>
+    <div onclick="window.location.href='{% url 'monthly_expenses' %}'" style="cursor:pointer;" class="action-card p-0 d-flex flex-column align-items-stretch justify-content-center">
+      <div class="px-2 pt-2" style="height: 80px;">
+        <canvas id="miniMonthlyTrendChart" height="80" style="width:100%;height:100%;display:block;"></canvas>
+      </div>
+      <div class="text-center pb-1">
+        <span class="action-icon" style="font-size:1.5rem;vertical-align:middle;">📈</span>
+        <span class="action-title" style="font-size:1.1rem;font-weight:600;vertical-align:middle;">Monthly Trend</span>
+      </div>
+      <div class="text-center pb-2" style="font-size:0.95rem;color:#e0e0e0;">
+        Tap the chart to see full monthly breakdown
+      </div>
+    </div>
+    <div onclick="window.location.href='{% url 'view_pocket_money' %}'" style="cursor:pointer;" class="action-card p-0 d-flex flex-column align-items-stretch justify-content-center">
+      <div class="text-center pt-3 pb-1">
+        <span class="action-icon" style="font-size:1.5rem;vertical-align:middle;">💰</span>
+        <span class="action-title" style="font-size:1.1rem;font-weight:600;vertical-align:middle;">Pocket Money</span>
+      </div>
+      <div class="px-3 pb-2">
+        <div style="width:100%;background:rgba(255,255,255,0.15);border-radius:8px;height:16px;overflow:hidden;">
+          <div style="height:100%;background:#63ffb8;border-radius:8px;width:{{ pocket_money_percent_left|floatformat:0 }}%;transition:width 0.5s;"></div>
+        </div>
+        <div style="font-size:0.95rem;color:#e0e0e0;margin-top:0.5rem;text-align:center;">
+          {{ pocket_money_percent_left|floatformat:0 }}% left this month
+        </div>
+      </div>
+    </div>
+    <a href="{% url 'add_expense' %}" class="action-card">
+      <span class="action-icon">➕</span>
+      <span class="action-title">Add New Expense</span>
+      <span class="action-desc">Quickly add a new expense to your tracker.</span>
+    </a>
+  </div>
+</div>
+<!-- Footer -->
+<div class="text-center mt-4 mb-2" style="color: #e0e0e0; font-size: 0.98rem;">
+  © 2025 Expense Tracker Platform. All rights reserved technoY.
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const miniWeeklyTrendCtx = document.getElementById('miniWeeklyTrendChart').getContext('2d');
+const weekLabels = {{ week_labels_json|safe }};
+const weekTotals = {{ week_totals_json|safe }};
+new Chart(miniWeeklyTrendCtx, {
+  type: 'line',
+  data: {
+    labels: weekLabels,
+    datasets: [{
+      label: '',
+      data: weekTotals,
+      borderColor: '#6c63ff',
+      backgroundColor: 'rgba(108,99,255,0.10)',
+      tension: 0.4,
+      pointRadius: 3,
+      pointBackgroundColor: '#fff',
+      pointBorderColor: '#6c63ff',
+      fill: true
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        ticks: { color: '#fff', font: { size: 11 } },
+        grid: { display: false }
+      },
+      y: {
+        display: false,
+        grid: { display: false }
+      }
+    },
+    elements: {
+      line: { borderWidth: 2 }
+    },
+    responsive: true,
+    maintainAspectRatio: false
+  }
+});
+const miniMonthlyTrendCtx = document.getElementById('miniMonthlyTrendChart').getContext('2d');
+const monthLabels = {{ month_labels_json|safe }};
+const monthTotals = {{ month_totals_json|safe }};
+new Chart(miniMonthlyTrendCtx, {
+  type: 'line',
+  data: {
+    labels: monthLabels,
+    datasets: [{
+      label: '',
+      data: monthTotals,
+      borderColor: '#ff6363',
+      backgroundColor: 'rgba(255,99,132,0.10)',
+      tension: 0.4,
+      pointRadius: 3,
+      pointBackgroundColor: '#fff',
+      pointBorderColor: '#ff6363',
+      fill: true
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        ticks: { color: '#fff', font: { size: 11 } },
+        grid: { display: false }
+      },
+      y: {
+        display: false,
+        grid: { display: false }
+      }
+    },
+    elements: {
+      line: { borderWidth: 2 }
+    },
+    responsive: true,
+    maintainAspectRatio: false
+  }
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

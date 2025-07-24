@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Expense Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Manrope', 'Inter', sans-serif;
+            background: #0d2321;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .signup-container {
+            background: #162825;
+            border-radius: 22px;
+            width: 420px;
+            aspect-ratio: 1 / 1;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3.2rem 2.2rem 2.2rem 2.2rem;
+        }
+        .signup-title {
+            color: #fff;
+            font-size: 2.3rem;
+            font-weight: 900;
+            margin-bottom: 2.2rem;
+            letter-spacing: 2.5px;
+            text-align: center;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            color: #e0e0e0;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255,255,255,0.13);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            outline: none;
+            transition: background 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+            background: rgba(29,233,182,0.13);
+        }
+        .signup-btn {
+            margin-top: 1.2rem;
+            padding: 0.8rem 0;
+            border: none;
+            border-radius: 10px;
+            background: #1de9b6;
+            color: #0d2321;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .signup-btn:hover {
+            background: #6c63ff;
+            color: #fff;
+        }
+        .login-link {
+            display: block;
+            margin: 1.2rem auto 0 auto;
+            color: #f8f7fc;
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .login-link:hover {
+            color: #1de9b6;
+        }
+        .futuristic-glow {
+            text-align: center;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            margin-top: 1.8rem;
+            opacity: 0.7;
+        }
+        @media (max-width: 500px) {
+            .signup-container {
+                width: 97vw;
+                min-height: 97vw;
+                aspect-ratio: 1 / 1;
+                padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+            }
+            .signup-title { font-size: 1.3rem; }
+            .signup-btn { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" required autofocus>
+            <label for="id_gmail">Gmail</label>
+            <input type="email" name="gmail" id="id_gmail" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" placeholder="yourname@gmail.com">
+            <label for="id_password1">Password</label>
+            <input type="password" name="password1" id="id_password1" required>
+            <label for="id_password2">Confirm Password</label>
+            <input type="password" name="password2" id="id_password2" required>
+            <button class="signup-btn" type="submit">Sign Up</button>
+        </form>
+        <a href="/login/" class="login-link">Already have an account? Login</a>
+    </div>
+</body>
+</html> 

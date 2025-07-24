@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Expense Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Manrope', 'Inter', sans-serif;
+            background: #0d2321;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: #162825;
+            border-radius: 22px;
+            width: 350px;
+            aspect-ratio: 1 / 1;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        .login-title {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1.5px;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            color: #e0e0e0;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255,255,255,0.13);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            outline: none;
+            transition: background 0.3s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            background: rgba(29,233,182,0.13);
+        }
+        .login-btn {
+            margin-top: 1.2rem;
+            padding: 0.8rem 0;
+            border: none;
+            border-radius: 10px;
+            background: #1de9b6;
+            color: #0d2321;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .login-btn:hover {
+            background: #6c63ff;
+            color: #fff;
+        }
+        .futuristic-glow {
+            text-align: center;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            margin-top: 1.8rem;
+            opacity: 0.7;
+        }
+        @media (max-width: 500px) {
+            .login-container {
+                width: 97vw;
+                min-height: 97vw;
+                aspect-ratio: 1 / 1;
+                padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+            }
+            .login-title { font-size: 1.3rem; }
+            .login-btn { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-title">Expense Tracker</div>
+        {% if messages %}
+            {% for message in messages %}
+                <div style="width:100%;margin-bottom:1rem;background:rgba(255,255,255,0.13);color:#fff;border-radius:8px;padding:0.7rem 0.5rem;text-align:center;font-size:1rem;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" required autofocus>
+            <label for="id_password">Password</label>
+            <input type="password" name="password" id="id_password" required>
+            <button class="login-btn" type="submit">Login</button>
+        </form>
+        <div class="futuristic-glow">All rights reserved &copy; 2025 technoY</div>
+    </div>
+</body>
+</html>

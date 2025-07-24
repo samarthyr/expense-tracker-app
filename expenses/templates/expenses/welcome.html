@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome | Expense Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #0d2321;
+            min-height: 100vh;
+            font-family: 'Manrope', 'Inter', sans-serif;
+            color: #fff;
+        }
+        .hero-section {
+            padding-top: 3.5rem;
+            padding-bottom: 2.5rem;
+        }
+        .hero-headline {
+            font-size: 2.7rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            line-height: 1.15;
+            color: #fff;
+        }
+        .hero-headline .fast {
+            color: #1de9b6;
+            font-weight: 900;
+            font-style: italic;
+        }
+        .hero-checklist {
+            margin: 2.2rem 0 2.2rem 0;
+            padding-left: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .hero-checklist li {
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.13rem;
+            margin-bottom: 0;
+        }
+        .hero-checklist .check {
+            color: #1de9b6;
+            font-size: 1.3rem;
+            margin-right: 0.7rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .hero-checklist .label {
+            font-weight: bold;
+            min-width: 140px;
+            margin-right: 1.1rem;
+            flex-shrink: 0;
+        }
+        .hero-checklist .desc {
+            color: #fff;
+            font-weight: 400;
+            word-break: break-word;
+        }
+        .cta-btn, .cta-btn.secondary {
+            font-size: 1.18rem;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 0.75rem 2.2rem;
+            margin: 0.5rem 0.7rem 0.5rem 0;
+            border: none;
+            background: #1de9b6;
+            color: #0d2321;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none !important;
+        }
+        .cta-btn:hover {
+            background: #0d2321;
+            color: #1de9b6;
+            border: 2px solid #1de9b6;
+        }
+        .cta-btn.secondary {
+            background: #fff;
+            color: #0d2321;
+            border: 1.5px solid #1de9b6;
+        }
+        .cta-btn.secondary:hover {
+            background: #1de9b6;
+            color: #0d2321;
+        }
+        .hero-visual {
+            text-align: center;
+        }
+        .hero-visual img {
+            width: 320px;
+            max-width: 95%;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            background: #fff;
+        }
+        .hero-bg-graph {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 60vw;
+          min-width: 500px;
+          max-width: 900px;
+          height: 100vh;
+          z-index: 1;
+          pointer-events: none;
+          opacity: 0.22;
+          filter: blur(1px) brightness(1.2) drop-shadow(0 0 40px #1de9b6cc);
+        }
+        .hero-section {
+          position: relative;
+          z-index: 2;
+        }
+        @media (max-width: 900px) {
+            .hero-section { padding-top: 2rem; }
+            .hero-headline { font-size: 2rem; }
+        }
+        @media (max-width: 900px) {
+          .top-right-auth {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            gap: 0.5rem;
+            right: 1rem !important;
+            top: 1rem !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .top-right-auth {
+            flex-direction: row;
+            align-items: center;
+            right: 0.5rem !important;
+            top: 0.5rem !important;
+          }
+        }
+        @media (max-width: 900px) {
+          .top-left-brand {
+            top: 4.2rem !important;
+            left: 1rem !important;
+            font-size: 1.2rem !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .top-left-brand {
+            top: 4.2rem !important;
+            left: 0.5rem !important;
+            font-size: 1.05rem !important;
+          }
+        }
+        @media (min-width: 900px) {
+          .top-right-auth {
+            gap: 0.5rem;
+          }
+          .cta-btn, .cta-btn.secondary {
+            width: 90px;
+            font-size: 1rem;
+            padding: 0.4rem 0.5rem;
+            height: 38px;
+            min-width: 0;
+          }
+        }
+        @media (max-width: 900px) {
+          .cta-btn, .cta-btn.secondary { width: 80px; font-size: 0.92rem; padding: 0.38rem 0.3rem; text-align: center; }
+        }
+        @media (max-width: 600px) {
+          .cta-btn, .cta-btn.secondary { width: 70px; font-size: 0.88rem; padding: 0.28rem 0.2rem; }
+        }
+        @media (max-width: 700px) {
+          .hero-checklist .label { min-width: 0; margin-right: 0.5rem; }
+          .hero-checklist li { font-size: 0.98rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top left brand -->
+    <div class="top-left-brand" style="position: absolute; top: 2rem; left: 2.5rem; z-index: 10; font-weight: 900; font-size: 1.6rem; color: #fff; letter-spacing: 1px;">Expense Tracker</div>
+    <!-- Top right Login/Sign Up -->
+    <div class="top-right-auth" style="position: absolute; top: 2rem; right: 2.5rem; z-index: 10;">
+      <a href="{% url 'login' %}" class="cta-btn me-2">Login</a>
+      <a href="{% url 'signup' %}" class="cta-btn secondary">Sign Up</a>
+    </div>
+    <!-- Hero Section Expensify Style -->
+    <div class="container hero-section" style="max-width:1200px;margin:2.5rem auto 3rem auto;">
+      <div class="row align-items-center justify-content-center flex-lg-row flex-column-reverse">
+        <div class="col-lg-6 col-12 text-lg-start text-center mb-4 mb-lg-0">
+          <h1 class="hero-headline">
+            The <span class="fast">fastest 🚀</span> way<br>to track your expenses
+          </h1>
+          <ul class="hero-checklist">
+            <li><span class="check">✔</span><span class="label">All inclusive.</span><span class="desc">Track, analyze, and import your expenses in one place.</span></li>
+            <li><span class="check">✔</span><span class="label">Visualize trends.</span><span class="desc">See your spending with beautiful charts and summaries.</span></li>
+            <li><span class="check">✔</span><span class="label">Import statements.</span><span class="desc">Bulk add expenses from CSV or PDF files.</span></li>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-12 hero-visual mb-4 mb-lg-0"></div>
+      </div>
+    </div>
+
+    <!-- Features Grid Expensify Style -->
+<div class="container" style="max-width:1200px;margin:0 auto 3rem auto;">
+  <h2 class="text-center mb-4" style="font-weight:800;letter-spacing:0.5px;font-size:2.2rem;">Features</h2>
+  <div class="row g-4 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="feature-card p-4 h-100" style="background:rgba(20,40,36,0.97);border-radius:20px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.13);color:#fff;">
+        <div style="height:44px;display:flex;align-items:center;justify-content:flex-start;">
+          <!-- Receipt SVG -->
+          <svg width="38" height="38" fill="none" stroke="#1de9b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+        </div>
+        <div class="fw-bold mt-2 mb-1" style="font-size:1.18rem;">Expense Management</div>
+        <div style="color:#e0e0e0;">Automatically add, edit, and track your expenses. Smart summaries and search included.</div>
+        <a href="#" style="color:#1de9b6;text-decoration:underline;font-weight:600;">Learn More</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="feature-card p-4 h-100" style="background:rgba(20,40,36,0.97);border-radius:20px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.13);color:#fff;">
+        <div style="height:44px;display:flex;align-items:center;justify-content:flex-start;">
+          <!-- Chart SVG -->
+          <svg width="38" height="38" fill="none" stroke="#1de9b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+        </div>
+        <div class="fw-bold mt-2 mb-1" style="font-size:1.18rem;">Visual Analysis</div>
+        <div style="color:#e0e0e0;">See your spending trends with interactive charts and insights.</div>
+        <a href="#" style="color:#1de9b6;text-decoration:underline;font-weight:600;">Learn More</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="feature-card p-4 h-100" style="background:rgba(20,40,36,0.97);border-radius:20px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.13);color:#fff;">
+        <div style="height:44px;display:flex;align-items:center;justify-content:flex-start;">
+          <!-- Import SVG -->
+          <svg width="38" height="38" fill="none" stroke="#1de9b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 8v8M8 12l4 4 4-4"/></svg>
+        </div>
+        <div class="fw-bold mt-2 mb-1" style="font-size:1.18rem;">Import Statements</div>
+        <div style="color:#e0e0e0;">Bulk import your expenses from CSV or PDF bank/UPI statements.</div>
+        <a href="#" style="color:#1de9b6;text-decoration:underline;font-weight:600;">Learn More</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="feature-card p-4 h-100" style="background:rgba(20,40,36,0.97);border-radius:20px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.13);color:#fff;">
+        <div style="height:44px;display:flex;align-items:center;justify-content:flex-start;">
+          <!-- Wallet SVG -->
+          <svg width="38" height="38" fill="none" stroke="#1de9b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4M2 11h20"/></svg>
+        </div>
+        <div class="fw-bold mt-2 mb-1" style="font-size:1.18rem;">Pocket Money Management</div>
+        <div style="color:#e0e0e0;">Set your monthly budget and see how much you have left at a glance.</div>
+        <a href="#" style="color:#1de9b6;text-decoration:underline;font-weight:600;">Learn More</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="feature-card p-4 h-100" style="background:rgba(20,40,36,0.97);border-radius:20px;box-shadow:0 2px 12px 0 rgba(44,62,80,0.13);color:#fff;">
+        <div style="height:44px;display:flex;align-items:center;justify-content:flex-start;">
+          <!-- Mobile SVG -->
+          <svg width="38" height="38" fill="none" stroke="#1de9b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="18" r="1.5"/></svg>
+        </div>
+        <div class="fw-bold mt-2 mb-1" style="font-size:1.18rem;">Mobile Friendly</div>
+        <div style="color:#e0e0e0;">Works great on your phone, tablet, or desktop. Add to your home screen for quick access!</div>
+        <a href="#" style="color:#1de9b6;text-decoration:underline;font-weight:600;">Learn More</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Add to Home Screen Instructions -->
+    <div class="container" style="max-width: 700px; margin: 0 auto 2.5rem auto;">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center mb-3">
+          <h4 style="font-weight:800;letter-spacing:0.5px;">Add to Home Screen</h4>
+          <div style="color:#e0e0e0;">Get quick access to Expense Tracker on your phone!</div>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <div class="p-3 feature-card h-100" style="background:rgba(255,255,255,0.13);border-radius:18px;">
+            <div style="height:40px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:1.1rem;vertical-align:middle;color:#3ddc84;font-weight:700;">Android (Chrome)</span>
+            </div>
+            <ol class="mt-2 mb-0" style="color:#e0e0e0;text-align:left;font-size:1rem;">
+              <li>Open the website in <b>Chrome</b>.</li>
+              <li>Tap the <b>three dots menu</b> (<span style="font-size:1.2rem;">⋮</span>) in the top right.</li>
+              <li>Tap <b>Add to Home screen</b>.</li>
+              <li>Confirm. The app icon will appear on your home screen!</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <div class="p-3 feature-card h-100" style="background:rgba(255,255,255,0.13);border-radius:18px;">
+            <div style="height:40px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:1.1rem;vertical-align:middle;color:#007aff;font-weight:700;">iPhone (Safari)</span>
+            </div>
+            <ol class="mt-2 mb-0" style="color:#e0e0e0;text-align:left;font-size:1rem;">
+              <li>Open the website in <b>Safari</b>.</li>
+              <li>Tap the <b>share icon</b> (<span style="font-size:1.2rem;">&#x1f4e4;</span>).</li>
+              <li>Tap <b>Add to Home Screen</b>.</li>
+              <li>Confirm. The app icon will appear on your home screen!</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4 mb-2" style="color: #e0e0e0; font-size: 0.98rem;">
+      © 2025 Expense Tracker Platform. All rights reserved technoY.
+    </div>
+    <!-- Big Footer Brand -->
+    <div style="width:100vw;overflow:hidden;margin-top:4rem;">
+      <div style="font-size:7vw;font-weight:900;letter-spacing:-2px;color:#1de9b6;opacity:0.13;line-height:1;text-align:left;white-space:nowrap;">
+        Expense Tracker
+      </div>
+    </div>
+    <!-- Futuristic Graph Background -->
+    <svg class="hero-bg-graph" viewBox="0 0 900 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="graphLine" x1="0" y1="0" x2="900" y2="700" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1de9b6"/>
+          <stop offset="1" stop-color="#6c63ff"/>
+        </linearGradient>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#1de9b6" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#1de9b6" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Abstract glowing graph lines -->
+      <polyline points="60,600 180,400 320,500 420,300 600,350 750,180 850,400" fill="none" stroke="url(#graphLine)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+      <polyline points="100,650 250,500 400,600 500,350 700,400 800,250 880,500" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.18"/>
+      <!-- Glowing dots -->
+      <circle cx="180" cy="400" r="32" fill="url(#glow)"/>
+      <circle cx="420" cy="300" r="24" fill="url(#glow)"/>
+      <circle cx="750" cy="180" r="18" fill="url(#glow)"/>
+      <circle cx="600" cy="350" r="20" fill="url(#glow)"/>
+    </svg>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

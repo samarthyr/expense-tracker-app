@@ -1,0 +1,356 @@
+<!-- templates/expenses/monthly_expenses.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Expenses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #4f63d6 0%, #9e6be8 100%);
+            min-height: 100vh;
+            font-family: 'Manrope', sans-serif;
+            color: #fff;
+        }
+        .main-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            padding: 2.5rem 1.5rem 2rem 1.5rem;
+            max-width: 900px;
+            margin: 3rem auto 2rem auto;
+        }
+        .main-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .main-subtitle {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-bottom: 2.2rem;
+        }
+        .summary-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .summary-card {
+            flex: 1 1 200px;
+            background: rgba(255,255,255,0.13);
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 2px 12px 0 rgba(44,62,80,0.07);
+            margin-bottom: 0.5rem;
+        }
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .navbar-custom {
+            background: linear-gradient(90deg, #4f63d6 0%, #9e6be8 100%);
+            padding: 0.7rem 0;
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #fff !important;
+            letter-spacing: 1px;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            margin-right: 1.2rem;
+            font-size: 1.05rem;
+            transition: color 0.15s;
+        }
+        .nav-link:hover {
+            color: #ffd6ff !important;
+        }
+        .minimal-card, .minimal-alert, .alert-warning, .alert-info {
+            background: rgba(255,255,255,0.13) !important;
+            border-radius: 16px !important;
+            border: none !important;
+            color: #fff !important;
+            box-shadow: 0 2px 12px 0 rgba(44,62,80,0.07);
+        }
+        .minimal-card {
+            background: rgba(255,255,255,0.13) !important;
+            border-radius: 16px !important;
+            border: none !important;
+            color: #fff !important;
+            box-shadow: 0 2px 12px 0 rgba(44,62,80,0.07);
+            margin-bottom: 0.5rem;
+            padding: 0.7rem 0.7rem; /* reduce padding */
+            min-height: unset;      /* remove any fixed height */
+        }
+        .minimal-card .card-body {
+            padding: 0.5rem 0.5rem; /* reduce padding */
+        }
+        .minimal-btn, .btn-primary, .btn-danger, .btn-secondary, .btn-outline-secondary {
+            background: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            box-shadow: none;
+            transition: background 0.2s;
+        }
+        .minimal-btn:hover, .btn-primary:hover, .btn-danger:hover, .btn-secondary:hover, .btn-outline-secondary:hover {
+            background: #554ee0;
+            color: #fff;
+        }
+        .btn-outline-secondary {
+            background: #fff;
+            color: #6c63ff;
+            border: 1px solid #6c63ff;
+        }
+        .btn-outline-secondary:hover {
+            background: #6c63ff;
+            color: #fff;
+        }
+        .form-select, .form-control {
+            border-radius: 8px;
+            border: 1px solid #e3e6ed;
+            background: #fff;
+            color: #222;
+        }
+        .table-responsive { margin-bottom: 1.5rem; }
+        .minimal-table th, .minimal-table td {
+            border: none;
+            background: transparent;
+            color: #fff;
+        }
+        .minimal-table th {
+            color: #ffd6ff;
+            font-weight: 600;
+        }
+        .minimal-table tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .minimal-table tr:last-child {
+            border-bottom: none;
+        }
+        select.form-select, select.form-select option {
+            background: rgba(44,62,80,0.25) !important;
+            color: #fff !important;
+        }
+        select.form-select:focus, select.form-select option:checked {
+            background: rgba(44,62,80,0.45) !important;
+            color: #ffd6ff !important;
+        }
+        /* For Firefox */
+        select.form-select:-moz-focusring {
+            color: #fff;
+            text-shadow: 0 0 0 #fff;
+        }
+        /* Custom scrollbar for dropdowns (Webkit browsers) */
+        select.form-select::-webkit-scrollbar {
+            width: 8px;
+            background: rgba(44,62,80,0.25);
+        }
+        select.form-select::-webkit-scrollbar-thumb {
+            background: #6c63ff;
+            border-radius: 4px;
+        }
+        @media (max-width: 900px) {
+            .main-card { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
+            .summary-row { gap: 1rem; }
+        }
+        @media (max-width: 700px) {
+            .main-card { margin: 1.5rem 0.2rem; }
+            .summary-row { flex-direction: column; gap: 0.7rem; }
+        }
+        @media (max-width: 767.98px) {
+            .minimal-card, .minimal-alert, .alert-warning {
+                font-size: 0.98rem;
+        }
+        .fw-bold {
+                font-size: 1.1rem;
+            }
+            .minimal-btn, .btn, .form-select, .form-control {
+                font-size: 1rem;
+                padding: 0.5rem 0.75rem;
+            }
+            .table th, .table td {
+                padding: 0.4rem 0.3rem;
+            }
+            .card-header {
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'expense_list' %}">Expense Tracker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="{% url 'expense_list' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'weekly_expenses' %}">Weekly</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'view_pocket_money' %}">Pocket Money</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'add_expense' %}">Add Expense</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'import_statement' %}">Import Statement</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+      <a href="{% url 'download_monthly_expenses' %}?year={{ selected_year }}&month={{ selected_month }}&category={{ request.GET.category }}" class="btn btn-danger ms-3" style="background:#ff6363; border-radius:8px; font-weight:600;">Download PDF</a>
+    </div>
+  </div>
+</nav>
+<!-- Main Card -->
+<div class="main-card">
+  <div class="text-center mb-4">
+    <div class="main-title">📅 Monthly Expenses</div>
+    <div class="main-subtitle">Review and analyze your monthly spending with beautiful insights.</div>
+  </div>
+  <!-- Total and Top Category Grid -->
+  <div class="row mb-4 g-2">
+    <div class="col-12 col-md-6">
+      <div class="minimal-alert alert text-center h-100 d-flex flex-column justify-content-center">
+        <strong>This Month's Total:</strong> ₹{{ month_total }}
+    </div>
+    </div>
+    <div class="col-12 col-md-6">
+      {% if top_category %}
+      <div class="alert alert-warning text-center h-100 d-flex flex-column justify-content-center">
+        <strong>You spent the most in:</strong> {{ top_category }} (₹{{ top_category_amount }})
+        </div>
+      {% endif %}
+        </div>
+        </div>
+    <!-- Summary Info Section Start -->
+  <div class="row mb-4 g-2">
+    <div class="col-6 col-md-3">
+            <div class="minimal-card card text-center">
+                <div class="card-body">
+                    <div class="fw-bold">Number of Expenses</div>
+                    <div>{{ expense_count }}</div>
+                </div>
+            </div>
+        </div>
+    <div class="col-6 col-md-3">
+            <div class="minimal-card card text-center">
+                <div class="card-body">
+                    <div class="fw-bold">Average Amount</div>
+                    <div>₹{{ average_amount|floatformat:2 }}</div>
+                </div>
+            </div>
+        </div>
+    <div class="col-6 col-md-3">
+            <div class="minimal-card card text-center">
+                <div class="card-body">
+                    <div class="fw-bold">Highest Expense</div>
+                    <div>₹{{ max_amount }}</div>
+                </div>
+            </div>
+        </div>
+    <div class="col-6 col-md-3">
+            <div class="minimal-card card text-center">
+                <div class="card-body">
+                    <div class="fw-bold">Lowest Expense</div>
+                    <div>₹{{ min_amount }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Filter Form Start -->
+  <form method="get" class="row g-2 g-md-3 mb-4 p-3 p-md-4 align-items-end"
+        style="background: rgba(255,255,255,0.13); border-radius: 16px; box-shadow: 0 2px 12px rgba(44,62,80,0.07); color: #fff;">
+    <div class="col-12 col-md-4 mb-2 mb-md-0">
+      <label for="year" class="form-label" style="color:#fff;">Year</label>
+      <select class="form-select" id="year" name="year" placeholder="Select year" style="background:rgba(44,62,80,0.25); color:#fff; border:none;">
+        <option value="">All</option>
+        {% for year in all_years %}
+          <option value="{{ year }}" {% if selected_year == year|stringformat:'s' %}selected{% endif %}>{{ year }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-12 col-md-4 mb-2 mb-md-0">
+      <label for="month" class="form-label" style="color:#fff;">Month</label>
+      <select class="form-select" id="month" name="month" placeholder="Select month" style="background:rgba(44,62,80,0.25); color:#fff; border:none;">
+        <option value="">All</option>
+        {% for num, name in all_months %}
+          <option value="{{ num }}" {% if selected_month == num|stringformat:'s' %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-12 col-md-4 mb-2 mb-md-0">
+      <label for="category" class="form-label" style="color:#fff;">Category</label>
+      <select class="form-select" id="category" name="category" placeholder="Select category" style="background:rgba(44,62,80,0.25); color:#fff; border:none;">
+        <option value="">All</option>
+        {% for cat in categories %}
+          <option value="{{ cat }}" {% if request.GET.category == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-6 col-md-2 mt-2 mt-md-3">
+      <button type="submit" class="minimal-btn btn btn-primary w-100">Filter</button>
+    </div>
+    <div class="col-6 col-md-2 mt-2 mt-md-3">
+      <a href="?" class="minimal-btn btn btn-outline-secondary w-100">Reset</a>
+    </div>
+  </form>
+  <!-- Filter Form End -->
+  <!-- Table Section: Make horizontally scrollable on mobile -->
+    {% for month, expenses in monthly_grouped.items %}
+        <div class="minimal-card card mb-3">
+            <div class="card-header">{{ month }}</div>
+            <div class="card-body p-0">
+        <div class="table-responsive">
+                <table class="minimal-table table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Note</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                            <tr>
+                                <td>{{ expense.date }}</td>
+                                <td>₹{{ expense.amount }}</td>
+                                <td>{{ expense.category }}</td>
+                                <td>{{ expense.note }}</td>
+                                <td>
+                    <a href="{% url 'edit_expense' expense.id %}" class="minimal-btn btn btn-sm btn-outline-success mb-1 mb-md-0">Edit</a>
+                                    <a href="{% url 'delete_expense' expense.id %}" class="minimal-btn btn btn-sm btn-outline-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<!-- Footer -->
+<div class="text-center mt-4 mb-2" style="color: #e0e0e0; font-size: 0.98rem;">
+  © 2025 Expense Tracker Platform. All rights reserved technoY.
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
